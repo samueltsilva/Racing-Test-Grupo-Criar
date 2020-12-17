@@ -50,6 +50,8 @@ $ordenados = calculaTempo($ordenados);
 //Calcula a melhor volta da corrida
 $bestRaceLap = melhorVoltaCorrida($ordenados);
 
+//echo'<pre>',print_r($bestRaceLap),'</pre>';
+
 ?>
 
 <!doctype html>
@@ -77,7 +79,7 @@ $bestRaceLap = melhorVoltaCorrida($ordenados);
                     <th scope="col">Best Lap</th>
                     <th scope="col">Average Speed</th>
                     <th scope="col">Hour</th>
-                    <th scope="col">Hour</th>
+                    <th scope="col">Time</th>
                 </tr>
                 </thead>
 
@@ -92,12 +94,12 @@ $bestRaceLap = melhorVoltaCorrida($ordenados);
                     <td><?php echo $item['melhor_volta']; ?></td>
                     <td><?php echo $item['velocidade_media']; ?> Km/s</td>
                     <td><?php echo $item['hora']; ?></td>
-                    <td><?php echo isset($item['tempo_recorrente']) ? "+".$item['tempo_recorrente'] : "Vencedor"; ?></td>
+                    <td><?php echo isset($item['tempo_recorrente']) ? "+".$item['tempo_recorrente'] : "+0:00:00:000"; ?></td>
                 </tr>
                 <?php } ?>
                 </tbody>
             </table>
-            <h4 style="margin-top: 10px;">Fastest lap of the race: </h4> <?php echo $bestRaceLap['tempo'] ?> - <?php echo $bestRaceLap['nome'] ?>
+            <h4 style="margin-top: 10px;">Fastest lap of the race: </h4> <?php echo "Lap: ". $bestRaceLap['volta'] ?> <br> <?php echo "Time: ". $bestRaceLap['tempo'] ?> <br> <?php echo "Pilot: ". $bestRaceLap['nome'] ?>
         </div>
     </body>
 </html>

@@ -139,24 +139,36 @@ function calculaTempo($ordenados){
 function melhorVoltaCorrida($ordenados){
     $winner = $ordenados[0];
     $bestLap = [
-        'nome' => $winner['nome']
+    	'id' => $winner['id']
+        ,'nome' => $winner['nome']
         ,'tempo' => stringToTime($winner['melhor_volta'])
     ];
 
-    foreach($ordenados as $key => $item){
+    foreach($ordenados as $item){
         if($winner['id'] != $item['id']){
             $_time = stringToTime($item['melhor_volta']);
             if($_time < $bestLap['tempo']){
+            	$bestLap['id'] = $item['id'];
                 $bestLap['nome'] = $item['nome'];
                 $bestLap['tempo'] = timeToString($_time);
+
             }
         } 
     }
 
     $bestLap['tempo'] = timeToString($bestLap['tempo']);
 
-    return $bestLap;
+    foreach ($ordenados as $key => $item) {
+    	if($item['id'] == $bestLap['id']){
+    		foreach ($item['voltas'] as $index => $value) {
+    			if($value['tempo_volta'] == $bestLap['tempo']){
+    				$bestLap['volta'] = $index;
+    			}
+    		}
+    	}
+    }
 
+    return $bestLap;
 }
 
 //Verifica se o piloto existe
