@@ -12,6 +12,7 @@ function processa_linha($linha){
     ];
 }
 
+//Adiciona os pilotos ao vetor $pilots
 function takePilotIfFirstRun(&$pilots, $volta){
     //A posição 1 da volta armazena o ID do piloto
     $id = $volta[1];
@@ -34,6 +35,7 @@ function takePilotIfFirstRun(&$pilots, $volta){
     }
 }
 
+//processa a volta e adicina as informações ao respectivo piloto
 function processa_volta(&$pilots, $volta){
 
     $id = $volta[1];
@@ -65,6 +67,7 @@ function processa_volta(&$pilots, $volta){
     $pilots[$id] = $piloto;
 }
 
+//Processa a velocidade média e o tempo total da corrida de cada piloto.
 function processAverages(&$pilots){
     foreach ($pilots as $key => $pilot) {
         $tempo_medio = 0;
@@ -88,7 +91,7 @@ function processAverages(&$pilots){
     }
 }
 
-//Converte todos os tempos para milissegundos, para comparar qual chegou primeiro
+//Converte todos os tempos para milissegundos, para comparar qual chegou primeiro. Retorna um vetor com: O ID e o tempo total de corrida de cada piloto
 function getPilotsBestLap($pilots){
     
     foreach ($pilots as $piloto) {
@@ -120,6 +123,7 @@ function getPilotsBestLap($pilots){
     return $posicoes;
 }
 
+//Calcula o tempo excedente de cada piloto após o vencedor
 function calculaTempo($ordenados){
     $winner = $ordenados[0];
     $hora   = stringToTime($winner['hora'], true);
@@ -136,6 +140,7 @@ function calculaTempo($ordenados){
     return $ordenados;
 }
 
+//Calcula a melhor volta da corrida
 function melhorVoltaCorrida($ordenados){
     $winner = $ordenados[0];
     $bestLap = [

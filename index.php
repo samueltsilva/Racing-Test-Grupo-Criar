@@ -1,10 +1,10 @@
+<!doctype html>
 <?php
 
 require_once 'includes/inputs.php';
 
 //Pega linhas do arquivo e armazena no array $lines
 $_raceLog = fopen("corrida.txt", "r");
-
 while(!feof($_raceLog)) {
     $_lines[] = fgets($_raceLog);
 }
@@ -15,26 +15,17 @@ $pilots = [];
 
 //Foreach para percorrer todas as linhas de voltas
 foreach($_lines as $index => $line) {
-
-    //Extrai as informações da volta
     $volta = processa_linha($line);
-
-    //Função para adicionar os pilotos
     takePilotIfFirstRun($pilots, $volta);
-
-    //processa a volta e adicina as informações ao respectivo piloto
     processa_volta($pilots, $volta);
 }
 
-//Processa a velocidade média e o tempo total da corrida de cada piloto
 processAverages($pilots);
 
-//Cria um vetor com: O ID e o tempo total de cada piloto
 $list = getPilotsBestLap($pilots);
 
 //posiciona em ordem de chegada os pilotos no array $ordenados
 $ordenados = [];
-
 foreach ($list as $index => $item){
     foreach ($pilots as $pilot) {
         if($item['id'] == $pilot['id']){
@@ -44,17 +35,10 @@ foreach ($list as $index => $item){
     }
 }
 
-//Calcula o tempo excedente de cada piloto após o vencedor
 $ordenados = calculaTempo($ordenados);
-
-//Calcula a melhor volta da corrida
 $bestRaceLap = melhorVoltaCorrida($ordenados);
-
-//echo'<pre>',print_r($bestRaceLap),'</pre>';
-
 ?>
 
-<!doctype html>
 <html lang="en">
     <head>
     <meta charset="utf-8">
